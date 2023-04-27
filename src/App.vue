@@ -1,30 +1,23 @@
 <template>
-  <nav>
+  <!-- <dev>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </nav>
+  </dev> -->
+
   <router-view/>
+
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  let brand = " | Inventory Vue SPA"
+  export default {
+    name: 'App',
+    watch:{
+      $route(to){
+        document.title = to.meta.title + brand
+        document.description = to.meta.description
+      }
+    }
+  }
+</script>
