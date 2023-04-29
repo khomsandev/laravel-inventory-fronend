@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 //Import Layouts
 import FrontendLayout from '@/layouts/Frontend.vue'
+import BackendLayout from '@/layouts/Backend.vue'
 
 // import Views
 // Frontend
@@ -15,9 +16,13 @@ import LoginView from '@/views/frontend/LoginView.vue'
 import ForgotPasswordView from '@/views/frontend/ForgotPasswordView.vue'
 import NotFound404View from '@/views/frontend/NotFound404View.vue'
 
-// Backend
+//Backend
+import DashboardView from '@/views/backend/DashboardView.vue'
+import ProductsView from '@/views/backend/ProductsView.vue'
 
 const routes = [
+
+  /** Frontend Route */
   {
     path: '/',
     name: 'Home',
@@ -146,8 +151,9 @@ const routes = [
       description: 'รายละเอียดหน้าลืมรหัสผ่าน'
     }
   },
+/** End Frontend Route */
 
-  // Error 404 
+/** Error 404 */
   {
     path: "/:catchAll(.*)",
     component: NotFound404View,
@@ -155,7 +161,39 @@ const routes = [
       title: '404 ไม่พบหน้านี้',
       description: 'รายละเอียดหน้า 404'
     }
+  },
+/** End Error 404 */
+
+/** Backend Route */
+{
+  path: '/backend',
+  name: 'Dashboard',
+  component: BackendLayout,
+  children: [
+    {
+      path: '',
+      component: DashboardView
+    }
+  ],
+  meta:{
+    title: 'Dashboard'
   }
+},
+{
+  path: '/backend/products',
+  name: 'Products',
+  component: BackendLayout,
+  children: [
+    {
+      path: '',
+      component: ProductsView
+    }
+  ],
+  meta:{
+    title: 'Products'
+  }
+}
+/** end Backend Route */
   
 ]
 

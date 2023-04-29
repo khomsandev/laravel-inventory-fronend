@@ -116,14 +116,44 @@ export default {
           // เก็บข้อมูล user ลง localStorage
           localStorage.setItem('user', JSON.stringify(response.data))
 
-          // เมื่อล็อกอินผ่านส่งไปหน้า dashboard
-          this.$router.push('backend')
+          const Toast = this.$swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', this.$swal.stopTimer)
+            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+          }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'กำลังเข้าสู่ระบบ...'
+        }).then(()=>{
+            // เมื่อล็อกอินผ่านส่งไปหน้า dashboard
+            // this.$router.push('backend')
+            window.location.href = '/backend'
+        })
+
 
         }).catch(error => {
           if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
+            // console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+            if(error.response.status == 401){
+              //เรียกใช้งาน sweetalert2
+              this.$swal({
+                position: 'center',
+                icon: 'error',
+                title: 'อีเมล์ หรือ รหัสผ่านไม่ถูกต้อง!',
+                showConfirmButton: false,
+                timer: 1500
+
+              });
+            }
           }
         })
 
